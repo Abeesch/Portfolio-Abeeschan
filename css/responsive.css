@@ -1,0 +1,10 @@
+/* ======== MOBILE ======== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .service-item {
+        max-width: 90%;
+    }
+}

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site-Web – Abeeschan</title>
+    <link href="../monprojet/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="header-content">
+        <div class="logo">AK</div>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="portfolio.html">Projet</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Projet -->
+<section class="hero project-hero">
+    <div class="portfolio-bg"></div>
+
+    <div class="hero-content fade-in">
+        <h1 style="color:rgba(255,255,255,.7);max-width:700px"class="gradient-text">Site-Web</h1>
+        <p style="color:rgba(255,255,255,.7);max-width:700px">
+          Site réalisé pour les projets scolaires et professionnels.
+            
+        </p>
+    </div>
+</section>
+
+<!-- Contenu Projet -->
+<section class="project-section">
+
+    <!-- Infos -->
+    <div class="project-info">
+        <div>
+            <h3>Rôle</h3>
+            <p>Site-Web</p>
+        </div>
+        <div>
+            <h3>Outils</h3>
+            <p>HTML, CSS, JavaScript, PHP, Wordpresse</p>
+        </div>
+        <div>
+            <h3>Type</h3>
+            <p>Site Web</p>
+        </div>
+    </div>
+
+    <div class="project-images">
+
+    <!-- Site web 1 -->
+  <div class="photo-item open-modal"
+     data-img="../monprojet/img/infochoko.png"
+     data-title="Salon du Chocolat – Web-doc"
+     data-tool="HTML • CSS • JavaScript"
+     data-link="https://infochoko.vercel.app/">
+
+    <img src="../monprojet/img/infochoko.png" alt="Site Salon du chocolat">
+
+    <div class="photo-overlay">
+        <h4>Site Salon du Chocolat</h4>
+        <p>Web-doc réalisé dans le cadre d’un projet scolaire.</p>
+        <span class="overlay-cta">Voir le projet</span>
+    </div>
+
+    <!-- DESCRIPTION LONGUE POUR LA POPUP -->
+    <div class="modal-desc-hidden">
+        <p>
+            Ce site web a été réalisé sous la forme d’un web-documentaire
+            dans le cadre d’un projet scolaire autour du Salon du Chocolat.
+            L’objectif était de proposer une expérience immersive et
+            interactive permettant à l’utilisateur de découvrir l’événement
+            de manière ludique et informative.
+        </p>
+
+        <p>
+            La navigation a été pensée pour être fluide et intuitive, avec
+            une structure claire facilitant l’accès aux différentes sections.
+            Une attention particulière a été portée à la hiérarchie des
+            contenus, à la lisibilité des textes et à l’équilibre visuel
+            entre images et informations.
+        </p>
+
+        <p>
+            Ce projet m’a permis de renforcer mes compétences en intégration
+            front-end et en conception d’expériences interactives, tout en
+            respectant les principes fondamentaux de l’UX design.
+        </p>
+    </div>
+
+</div>
+
+
+
+    
+     <div class="photo-item open-modal"
+     data-img="../monprojet/img/site-djeeks.png"
+     data-title="Djeeks – Site vitrine"
+     data-tool="HTML • CSS • JavaScript"
+     data-link="image-djeeks.html">
+
+    <img src="../monprojet/img/site-djeeks.png" alt="Site Djeeks">
+
+    <div class="photo-overlay">
+        <h4>Djeeks</h4>
+        <p>Site web pour une agence digitale.</p>
+        <span class="overlay-cta">Voir le projet</span>
+    </div>
+
+    <div class="modal-desc-hidden">
+        <p>
+            Le site Djeeks a été conçu pour une entreprise spécialisée
+            dans la création de sites web destinés à d’autres entreprises.
+            L’objectif était de valoriser les services proposés tout en
+            donnant une image moderne et professionnelle.
+        </p>
+
+        <p>
+            Le design met en avant une structure claire, des sections bien
+            délimitées et un parcours utilisateur logique permettant de
+            comprendre rapidement l’offre. L’accent a été mis sur la
+            cohérence visuelle et la crédibilité de la marque.
+        </p>
+    </div>
+
+</div>
+
+
+    <!-- Site web 3 -->
+      <div class="photo-item open-modal"
+     data-img="../monprojet/img/site-hapiness.png"
+     data-title="Happiness Beauty – Site vitrine"
+     data-tool="HTML • CSS • WordPress"
+     data-link="image-hb.html">
+
+    <img src="../monprojet/img/site-hapiness.png" alt="Site Happiness Beauty">
+
+    <div class="photo-overlay">
+        <h4>Happiness Beauty</h4>
+        <p>Site vitrine pour un salon de beauté.</p>
+        <span class="overlay-cta">Voir le projet</span>
+    </div>
+
+    <div class="modal-desc-hidden">
+        <p>
+            Ce site vitrine a été conçu pour un salon de beauté dans le but
+            de présenter ses services, son univers et ses valeurs. L’approche
+            graphique se veut élégante et apaisante afin de refléter
+            l’identité du lieu.
+        </p>
+
+        <p>
+            Une attention particulière a été portée à l’ergonomie, avec une
+            navigation simple et accessible permettant aux visiteurs de
+            trouver rapidement les informations essentielles.
+        </p>
+    </div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Abeeschan Krishnakumar</p>
+</footer>
+<!-- POPUP MODALE -->
+<div class="modal" id="projectModal">
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+
+        <div class="modal-grid">
+            <!-- Image -->
+            <div class="modal-image">
+                <img id="modalImg" src="" alt="">
+            </div>
+
+            <!-- Texte -->
+            <div class="modal-text">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDesc"></p>
+
+                <div class="modal-footer">
+                    <span class="modal-tool">Outil : <strong id="modalTool"></strong></span>
+                    <a id="modalLink" href="#" target="_blank" class="overlay-cta">
+                        Voir plus
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+const modal = document.getElementById('projectModal');
+const modalImg = document.getElementById('modalImg');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalTool = document.getElementById('modalTool');
+const modalLink = document.getElementById('modalLink');
+
+document.querySelectorAll('.open-modal').forEach(item => {
+    item.addEventListener('click', () => {
+        modalImg.src = item.dataset.img;
+        modalTitle.textContent = item.dataset.title;
+       const hiddenDesc = item.querySelector('.modal-desc-hidden');
+modalDesc.innerHTML = hiddenDesc.innerHTML;
+
+        modalTool.textContent = item.dataset.tool;
+        modalLink.href = item.dataset.link;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+document.querySelector('.modal-close').onclick =
+document.querySelector('.modal-overlay').onclick = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+};
+</script>
+</body>
+</html>

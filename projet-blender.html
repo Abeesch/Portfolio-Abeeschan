@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Blender – Abeeschan Krishnakumar</title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background: #0a0a0a;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 25px 40px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            margin-left: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        nav a:hover { color: #fff; }
+
+        /* Gallery */
+        .gallery-container {
+            margin-top: 120px;
+            padding: 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-title {
+            text-align: center;
+            color: #fff;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 60px;
+        }
+
+        .chocolate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .chocolate-square {
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border-radius: 16px;
+            cursor: pointer;
+            background: #1a1a1a;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .chocolate-square:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .chocolate-square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .chocolate-square:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            max-width: 1200px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-image {
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .modal-image img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .modal-info {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            flex: 1;
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .software-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .software-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            text-align: center;
+            margin-top: 80px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .chocolate-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chocolate-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-image {
+                padding: 20px;
+            }
+
+            .modal-info {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">AK</div>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="projet-blender.html" class="active">Projet</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Gallery -->
+    <div class="gallery-container">
+        <h1 class="gallery-title">Projet Blender</h1>
+        <p class="gallery-subtitle">Un aperçu des objets 3D</p>
+
+        <div class="chocolate-grid">
+            <!-- Projet 1 -->
+            <div class="chocolate-square" onclick="openModal('modal1')">
+                <img src="img/Salledebain.png" alt="Salle de bain">
+            </div>
+
+            <!-- Projet 2 -->
+            <div class="chocolate-square" onclick="openModal('modal2')">
+                <img src="img/projecteur.png" alt="Projecteur">
+            </div>
+
+            <!-- Projet 3 -->
+            <div class="chocolate-square" onclick="openModal('modal3')">
+                <img src="img/éventail.png" alt="Éventail">
+            </div>
+
+            <!-- Projet 4 -->
+            <div class="chocolate-square" onclick="openModal('modal4')">
+                <img src="img/tomate.png" alt="Tomate">
+            </div>
+
+            <!-- Projet 5 -->
+            <div class="chocolate-square" onclick="openModal('modal5')">
+                <img src="img/horloge.png" alt="Horloge">
+            </div>
+
+            <!-- Projet 6 -->
+            <div class="chocolate-square" onclick="openModal('modal6')">
+                <img src="img/souris.png" alt="Souris">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal" onclick="closeModal('modal1')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal1')">×</button>
+            <div class="modal-image">
+                <img src="img/Salledebain.png" alt="Salle de bain">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Salle de Bain 3D</h2>
+                <div class="modal-description">
+                    <p>Ce projet consiste en la modélisation complète d’une salle de bain moderne, réalisée avec une attention particulière portée aux détails et aux proportions. Chaque élément a été conçu afin de refléter un environnement réaliste et harmonieux.</p>
+                    <p>La création inclut des textures réalistes ainsi qu’un éclairage ambiant soigné, permettant de mettre en valeur les matériaux et les volumes. Le travail de lumière contribue à renforcer l’atmosphère de la scène et à obtenir un rendu visuel cohérent.</p>
+                <p>Les techniques utilisées comprennent la modélisation polygonale, le UV mapping, le texturing PBR et l’éclairage HDRI, aboutissant à un rendu photoréaliste fidèle à une salle de bain contemporaine.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal" onclick="closeModal('modal2')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal2')">×</button>
+            <div class="modal-image">
+                <img src="img/projecteur.png" alt="Projecteur">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Projecteur Cinéma</h2>
+                <div class="modal-description">
+                    <p>Ce projet consiste en la modélisation 3D détaillée d’un projecteur de cinéma vintage, en mettant l’accent sur la fidélité des formes, des proportions et des mécanismes visibles. Les matériaux métalliques, les vis, les engrenages et les éléments structurels ont été soigneusement travaillés afin de restituer l’aspect robuste et authentique de l’équipement d’origine.</p>
+                    <p>Le travail se concentre principalement sur la modélisation hard-surface, avec une attention particulière portée aux arêtes, aux assemblages et aux finitions mécaniques. Les shaders métalliques ont été ajustés pour reproduire des surfaces réalistes, intégrant variations de brillance et usure subtile, permettant d’aboutir à un rendu visuel réaliste et immersif.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal" onclick="closeModal('modal3')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal3')">×</button>
+            <div class="modal-image">
+                <img src="img/éventail.png" alt="Éventail">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Éventail Traditionnel</h2>
+                <div class="modal-description">
+                    <p>Ce projet porte sur la modélisation 3D d’un éventail traditionnel, en mettant en valeur la structure en bois ainsi que la texture du tissu. Une attention particulière a été portée aux détails et aux proportions afin de restituer l’élégance et le caractère authentique de l’objet.</p>
+                    <p>Le travail s’est concentré sur les matériaux organiques, notamment le bois et le tissu, avec un soin particulier apporté aux textures et aux nuances. La simulation de tissu a permis d’obtenir un rendu naturel et réaliste, renforçant l’aspect authentique et crédible de l’éventail.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4 -->
+    <div id="modal4" class="modal" onclick="closeModal('modal4')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal4')">×</button>
+            <div class="modal-image">
+                <img src="img/tomate.png" alt="Tomate">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Tomate Photoréaliste</h2>
+                <div class="modal-description">
+                    <p>Ce projet consiste en la réalisation d’un rendu hyperréaliste d’une tomate, avec un travail poussé sur la forme, la surface et les imperfections naturelles. L’utilisation du subsurface scattering permet de simuler la translucidité de la peau et de reproduire le comportement réaliste de la lumière à travers la matière.</p>
+                    <p>Une étude approfondie des matériaux organiques a été menée afin d’obtenir des textures crédibles et nuancées. Le travail sur l’éclairage naturel joue un rôle essentiel dans la mise en valeur du volume, des couleurs et du réalisme global du rendu.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5 -->
+    <div id="modal5" class="modal" onclick="closeModal('modal5')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal5')">×</button>
+            <div class="modal-image">
+                <img src="img/horloge.png" alt="Horloge">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Horloge Murale</h2>
+                <div class="modal-description">
+                    <p>Ce projet consiste en la modélisation 3D d’une horloge murale classique, avec un mécanisme détaillé et l’utilisation de matériaux variés tels que le bois, le métal et le verre. Chaque élément a été conçu avec soin afin de restituer fidèlement la structure et le style traditionnel de l’horloge.</p>
+                    <p>Une attention particulière a été portée aux reflets et aux textures pour renforcer le réalisme de l’objet. Le travail sur les matériaux et l’éclairage permet de mettre en valeur les surfaces, les détails mécaniques et les nuances de chaque composant, aboutissant à un rendu visuel crédible et immersif.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 6 -->
+    <div id="modal6" class="modal" onclick="closeModal('modal6')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('modal6')">×</button>
+            <div class="modal-image">
+                <img src="img/souris.png" alt="Souris">
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title">Souris Gaming</h2>
+                <div class="modal-description">
+                    <p>Ce projet porte sur la modélisation 3D d’une souris gaming au design moderne, intégrant un éclairage RGB et l’utilisation de matériaux variés tels que le plastique et le métal. Chaque courbe et chaque surface ont été soigneusement travaillées pour refléter un design à la fois esthétique et fonctionnel.</p>
+                    <p>Une attention particulière a été portée à la précision des formes ergonomiques et aux détails techniques, comme les boutons, les gravures et les textures. Le travail sur les matériaux et l’éclairage permet de mettre en valeur les reflets, les contrastes et l’aspect réaliste de la souris, offrant un rendu final immersif et professionnel.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="software-badge">
+                        <div class="software-icon">🎨</div>
+                        Blender 3D
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Abeeschan Krishnakumar</p>
+    </footer>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fermer avec Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+
+</body>
+</html>
